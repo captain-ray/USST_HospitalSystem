@@ -1,7 +1,7 @@
 package Person;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -223,23 +223,27 @@ public class Administor {
 	}
 	
 	//添加账户
-	public void addAccount(String userName,String password,String type){
+	public void addAccount(String userName,String password,String type) throws IOException{
 		Administor.accounts.add(new Account(userName,password,type));
+		writeAccount("account.txt");
 	}
 	//添加科室
-	public void addHospitalDepartment(String name,String no){
+	public void addHospitalDepartment(String name,String no) throws IOException{
 		Administor.hospitalDepartments.add(new HospitalDepartment(name,no));
+		writeAccount("hospitalDepartment.txt");
 	}
 	//添加药品
-	public void addMedicine(String name,String shortName,String unit,double price,String no){
+	public void addMedicine(String name,String shortName,String unit,double price,String no) throws IOException{
 		Administor.medicines.add(new Medicine(name,shortName,unit,price,no));
+		writeAccount("medicine.txt");
 	}
 	//添加收费项目
-	public void addChargeItem(String name,String shortName,String unit,double price,String no){
+	public void addChargeItem(String name,String shortName,String unit,double price,String no) throws IOException{
 		Administor.chargeItems.add(new ChargeItem(name,shortName,unit,price,no));
+		writeAccount("chargeItem.txt");
 	}
 	//修改账户
-	public String alterAccount(String userName,String newPassword,String newType){
+	public String alterAccount(String userName,String newPassword,String newType) throws IOException{
 		int mark=0;
 		for(Account a : Administor.accounts){
 			if(a.getUserName().equals(userName)){
@@ -249,11 +253,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("account.txt");
 		if(mark==0) return "无该账号！";
 		return "修改成功！";
 	}
 	//修改科室
-	public String alterHospital(String no,String newName){
+	public String alterHospital(String no,String newName) throws IOException{
 		int mark=0;
 		for(HospitalDepartment a : Administor.hospitalDepartments){
 			if(a.getNo().equals(no)){
@@ -262,11 +267,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("hospitalDepartment.txt");
 		if(mark==0) return "无该科室！";
 		return "修改成功！";
 	}
 	//修改药品
-	public String alterMedicine(String shortName,String newNo,String newUnit,String newPrice){
+	public String alterMedicine(String shortName,String newNo,String newUnit,String newPrice) throws IOException{
 		int mark=0;
 		for(Medicine a : Administor.medicines){
 			if(a.getShortName().equals(shortName)){
@@ -278,11 +284,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("medicine.txt");
 		if(mark==0) return "无该药品！";
 		return "修改成功！";
 	}
 	//修改收费项目
-	public String alterChargeItem(String shortName,String newNo,String newUnit,String newPrice){
+	public String alterChargeItem(String shortName,String newNo,String newUnit,String newPrice) throws IOException{
 		int mark=0;
 		for(ChargeItem a : Administor.chargeItems){
 			if(a.getShortName().equals(shortName)){
@@ -294,11 +301,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("chargeItem.txt");
 		if(mark==0) return "无该项目！";
 		return "修改成功！";
 	}
 	//删除账号
-	public String deleteAccount(String userName){
+	public String deleteAccount(String userName) throws IOException{
 		int mark=0;
 		for(Account a:Administor.accounts){
 			if(a.getUserName().equals(userName)){
@@ -307,11 +315,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("account.txt");
 		if(mark==0) return "删除失败！";
 		return "删除成功！";
 	}
 	//删除科室
-	public String deleteHospitalDepartment(String name){
+	public String deleteHospitalDepartment(String name) throws IOException{
 		int mark=0;
 		for(HospitalDepartment a:Administor.hospitalDepartments){
 			if(a.getName().equals(name)){
@@ -320,11 +329,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("hospitalDepartment.txt");
 		if(mark==0) return "删除失败！";
 		return "删除成功！";
 	}
 	//删除药品
-	public String deleteMedicine(String name){
+	public String deleteMedicine(String name) throws IOException{
 		int mark=0;
 		for(Medicine a:Administor.medicines){
 			if(a.getName().equals(name)){
@@ -333,11 +343,12 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("medicine.txt");
 		if(mark==0) return "删除失败！";
 		return "删除成功！";
 	}
 	//删除项目
-	public String deleteChargeItem(String name){
+	public String deleteChargeItem(String name) throws IOException{
 		int mark=0;
 		for(ChargeItem a:Administor.chargeItems){
 			if(a.getName().equals(name)){
@@ -346,8 +357,38 @@ public class Administor {
 				break;
 			}
 		}
+		writeAccount("chargeItem.txt");
 		if(mark==0) return "删除失败！";
 		return "删除成功！";
+	}
+	//将改变的结果写回文件
+	public void writeAccount(String fileName) throws IOException{
+		FileWriter file = new FileWriter(fileName);
+		for(Account a : Administor.accounts){
+			file.write(a.getUserName()+" "+a.getPassword()+a.getType());
+		}
+		file.close();
+	}
+	public void writeHospitalDepartment(String fileName) throws IOException{
+		FileWriter file = new FileWriter(fileName);
+		for(HospitalDepartment a : Administor.hospitalDepartments){
+			file.write(a.getName()+" "+a.getNo());
+		}
+		file.close();
+	}
+	public void writeMedicine(String fileName) throws IOException{
+		FileWriter file = new FileWriter(fileName);
+		for(Medicine a : Administor.medicines){
+			file.write(a.getName()+" "+a.getShortName()+" "+a.getUnit()+" "+a.getPrice()+" "+a.getNo());
+		}
+		file.close();
+	}
+	public void writeChargeItem(String fileName) throws IOException{
+		FileWriter file = new FileWriter(fileName);
+		for(ChargeItem a : Administor.chargeItems){
+			file.write(a.getName()+" "+a.getShortName()+" "+a.getUnit()+" "+a.getPrice()+" "+a.getNo());
+		}
+		file.close();
 	}
 /*	public static void main(String[] args) throws IOException {
 		Administor admin = new Administor("123456","000000");
