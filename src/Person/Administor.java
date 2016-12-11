@@ -1,19 +1,227 @@
-package person;
+package Person;
 
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Administor extends Person{
-	
+public class Administor {
+	private String userName;
+	private String password;
 	static ArrayList<Account> accounts = new ArrayList<>();
 	static ArrayList<HospitalDepartment> hospitalDepartments = new ArrayList<>();
 	static ArrayList<Medicine> medicines = new ArrayList<>();
 	static ArrayList<ChargeItem> chargeItems = new ArrayList<>();
-	
-	public Administor(String userName, String password,String name,String id) {
-		super(userName,password,name,id);
+	//系统账户类
+	class Account{
+		private String userName;
+		private String password;
+		private String type;
+		public String getUserName() {
+			return userName;
+		}
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		
+		public String getType() {
+			return type;
+		}
+		public void setType(String type) {
+			this.type = type;
+		}
+		public Account(String userName,String password,String type){
+			this.userName=userName;
+			this.password=password;
+			this.type=type;
+		}
 	}
+	//医院科室类
+	class HospitalDepartment{
+		private String name;
+		private String no;//编号
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getNo() {
+			return no;
+		}
+
+		public void setNo(String no) {
+			this.no = no;
+		}
+
+		public HospitalDepartment(String name,String no){
+			this.name = name;
+			this.no = no;
+		}
+		
+	}
+	//药品类
+	class Medicine{
+		private String name;
+		private String shortName;//拼音简码
+		private String unit;
+		private double price;
+		private String no;
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getShortName() {
+			return shortName;
+		}
+		public void setShortName(String shortName) {
+			this.shortName = shortName;
+		}
+		public double getPrice() {
+			return price;
+		}
+		public void setPrice(double price) {
+			this.price = price;
+		}
+		
+		public String getUnit() {
+			return unit;
+		}
+		public void setUnit(String unit) {
+			this.unit = unit;
+		}
+		
+		public String getNo() {
+			return no;
+		}
+		public void setNo(String no) {
+			this.no = no;
+		}
+		public Medicine(String name,String shortName,String unit,double price,String no){
+			this.name=name;
+			this.shortName=shortName;
+			this.unit=unit;
+			this.price=price;
+			this.no=no;
+		}
+	}
+	//收费项目类
+	class ChargeItem{
+		private String name;
+		private String shortName;
+		private String unit;
+		private double price;
+		private String no;
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getShortName() {
+			return shortName;
+		}
+		public void setShortName(String shortName) {
+			this.shortName = shortName;
+		}
+		public String getUnit() {
+			return unit;
+		}
+		public void setUnit(String unit) {
+			this.unit = unit;
+		}
+		
+		public String getNo() {
+			return no;
+		}
+		public void setNo(String no) {
+			this.no = no;
+		}
+		public double getPrice() {
+			return price;
+		}
+		public void setPrice(double price) {
+			this.price = price;
+		}
+		public ChargeItem(String name,String shortName,String unit,double price,String no){
+			this.name=name;
+			this.shortName=shortName;
+			this.price=price;
+			this.unit=unit;
+			this.no=no;
+		}
+	}
+	//初始化，将文件导入数据结构
+	public Administor(String userName,String password) throws IOException{
+		this.userName=userName;
+		this.password=password;
+		Scanner in = new Scanner(//导入账号
+				new FileInputStream(".\\data\\account.txt"));
+		while(true){
+			try{
+				String str=in.nextLine();
+				String[] strs=str.split("\\s");
+				Administor.Account account=new Administor.Account(strs[0],strs[1],strs[2]);
+				Administor.accounts.add(account);
+			}catch(Exception NoSuchElementException){
+				in.close();
+				break;
+			}
+		}
+		in = new Scanner(//导入医院科室
+				new FileInputStream(".\\data\\hospitalDepartment.txt"));
+		while(true){
+			try{
+				String str=in.nextLine();
+				String[] strs=str.split("\\s");
+				Administor.HospitalDepartment hospitalDepartment=new Administor.HospitalDepartment(strs[0],strs[1]);
+				Administor.hospitalDepartments.add(hospitalDepartment);
+			}catch(Exception NoSuchElementException){
+				in.close();
+				break;
+			}
+		}
+		in = new Scanner(//导入药品信息
+				new FileInputStream(".\\data\\medicine.txt"));
+		while(true){
+			try{
+				String str=in.nextLine();
+				String[] strs=str.split("\\s");
+				double price = Double.parseDouble(strs[3]);
+				Administor.Medicine medicine=new Administor.Medicine(strs[0],strs[1],strs[2],price,strs[4]);
+				Administor.medicines.add(medicine);
+			}catch(Exception NoSuchElementException){
+				in.close();
+				break;
+			}
+		}
+		in = new Scanner(//导入收费项目
+				new FileInputStream(".\\data\\chargeItem.txt"));
+		while(true){
+			try{
+				String str=in.nextLine();
+				String[] strs=str.split("\\s");
+				double price = Double.parseDouble(strs[3]);
+				Administor.ChargeItem chargeItem=new Administor.ChargeItem(strs[0],strs[1],strs[2],price,strs[4]);
+				Administor.chargeItems.add(chargeItem);
+			}catch(Exception NoSuchElementException){
+				in.close();
+				break;
+			}
+		}
+	}
+	
 	//添加账户
 	public void addAccount(String userName,String password,String type) throws IOException{
 		Administor.accounts.add(new Account(userName,password,type));
@@ -197,153 +405,4 @@ public class Administor extends Person{
 			System.out.println(a.getName()+" "+a.getShortName()+" "+a.getUnit()+" "+a.getPrice());
 		}
 	}*/
-}
-//系统账户类
-class Account{
-	private String userName;
-	private String password;
-	private String type;
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public Account(String userName,String password,String type){
-		this.userName=userName;
-		this.password=password;
-		this.type=type;
-	}
-}
-//医院科室类
-class HospitalDepartment{
-	private String name;
-	private String no;//编号
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getNo() {
-		return no;
-	}
-
-	public void setNo(String no) {
-		this.no = no;
-	}
-
-	public HospitalDepartment(String name,String no){
-		this.name = name;
-		this.no = no;
-	}
-	
-}
-//药品类
-class Medicine{
-	private String name;
-	private String shortName;//拼音简码
-	private String unit;
-	private double price;
-	private String no;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getShortName() {
-		return shortName;
-	}
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	
-	public String getUnit() {
-		return unit;
-	}
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-	
-	public String getNo() {
-		return no;
-	}
-	public void setNo(String no) {
-		this.no = no;
-	}
-	public Medicine(String name,String shortName,String unit,double price,String no){
-		this.name=name;
-		this.shortName=shortName;
-		this.unit=unit;
-		this.price=price;
-		this.no=no;
-	}
-}
-//收费项目类
-class ChargeItem{
-	private String name;
-	private String shortName;
-	private String unit;
-	private double price;
-	private String no;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getShortName() {
-		return shortName;
-	}
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-	public String getUnit() {
-		return unit;
-	}
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-	
-	public String getNo() {
-		return no;
-	}
-	public void setNo(String no) {
-		this.no = no;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	public ChargeItem(String name,String shortName,String unit,double price,String no){
-		this.name=name;
-		this.shortName=shortName;
-		this.price=price;
-		this.unit=unit;
-		this.no=no;
-	}
 }

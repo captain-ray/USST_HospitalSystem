@@ -1,13 +1,11 @@
-package person;
+package Person;
 
 public class Patient {
 	private String name;
 	private String age;
 	private String phoneNumber;
-	private String id;
-	private HospitalDepartment hospitalDepartment;
-	private String orderedTime;
-	private Doctor doctor;
+	private String orderedDepartment;
+	private String time;
 	public String getName() {
 		return name;
 	}
@@ -26,36 +24,23 @@ public class Patient {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public HospitalDepartment getHospitalDepartment() {
-		return hospitalDepartment;
+	public String getOrderedDepartment() {
+		return orderedDepartment;
 	}
-	public void setHospitalDepartment(HospitalDepartment hospitalDepartment) {
-		this.hospitalDepartment = hospitalDepartment;
+	public void setOrderedDepartment(String orderedDepartment) {
+		this.orderedDepartment = orderedDepartment;
 	}
-	public String getOrderedTime() {
-		return orderedTime;
+	public String getTime() {
+		return time;
 	}
-	public void setOrderedTime(String orderedTime) {
-		this.orderedTime = orderedTime;
+	public void setTime(String time) {
+		this.time = time;
 	}
-	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	public Doctor getDoctor() {
-		return doctor;
-	}
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
-	public Patient(String name,String age,String phoneNumber,String id){
+	public Patient(String name,String age,String phoneNumber,String orderedDepartment,String time){
 		this.name=name;
 		this.age=age;
 		this.phoneNumber=phoneNumber;
-		this.id = id;
+		this.orderedDepartment=orderedDepartment;
+		this.time=time;
 	}
 }
