@@ -1,11 +1,18 @@
-package Person;
+package person;
+
+import java.util.ArrayList;
 
 public class Patient {
 	private String name;
 	private String age;
 	private String phoneNumber;
-	private String orderedDepartment;
-	private String time;
+	private String id;
+	private HospitalDepartment hospitalDepartment;
+	private String orderedTime;
+	private Doctor doctor;
+	private ArrayList<Medicine> medicines=new ArrayList<>();
+	private ArrayList<ChargeItem> chargeItems=new ArrayList<>();
+	
 	public String getName() {
 		return name;
 	}
@@ -24,23 +31,43 @@ public class Patient {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public String getOrderedDepartment() {
-		return orderedDepartment;
+	public HospitalDepartment getHospitalDepartment() {
+		return hospitalDepartment;
 	}
-	public void setOrderedDepartment(String orderedDepartment) {
-		this.orderedDepartment = orderedDepartment;
+	public void setHospitalDepartment(HospitalDepartment hospitalDepartment) {
+		this.hospitalDepartment = hospitalDepartment;
 	}
-	public String getTime() {
-		return time;
+	public String getOrderedTime() {
+		return orderedTime;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setOrderedTime(String orderedTime) {
+		this.orderedTime = orderedTime;
 	}
-	public Patient(String name,String age,String phoneNumber,String orderedDepartment,String time){
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	
+	public ArrayList<Medicine> getMedicines() {
+		return medicines;
+	}
+	public ArrayList<ChargeItem> getChargeItems() {
+		return chargeItems;
+	}
+	public Patient(String name,String age,String phoneNumber,String id){
 		this.name=name;
 		this.age=age;
 		this.phoneNumber=phoneNumber;
-		this.orderedDepartment=orderedDepartment;
-		this.time=time;
+		this.id = id;
 	}
 }
