@@ -67,7 +67,7 @@ public class Main {
 			try {
 				str = in.nextLine();
 				String[] strs = str.split("\\s+");
-				Charger.registerPatients.add(new Patient(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]));
+				Charger.registerPatients.add(new Patient(strs[0], strs[1], strs[2], strs[3]));
 			} catch (Exception NoSuchElementException) {
 				in.close();
 				break;
@@ -79,7 +79,7 @@ public class Main {
 			try {
 				str = in.nextLine();
 				String[] strs = str.split("\\s+");
-				Charger.orderPatients.add(new Patient(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]));
+				Charger.orderPatients.add(new Patient(strs[0], strs[1], strs[2], strs[3]));
 			} catch (Exception NoSuchElementException) {
 				in.close();
 				break;

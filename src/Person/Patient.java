@@ -1,5 +1,7 @@
 package person;
 
+import java.util.ArrayList;
+
 public class Patient {
 	private String name;
 	private String age;
@@ -8,6 +10,9 @@ public class Patient {
 	private HospitalDepartment hospitalDepartment;
 	private String orderedTime;
 	private Doctor doctor;
+	private ArrayList<Medicine> medicines=new ArrayList<>();
+	private ArrayList<ChargeItem> chargeItems=new ArrayList<>();
+	
 	public String getName() {
 		return name;
 	}
@@ -51,6 +56,13 @@ public class Patient {
 	}
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
+	}
+	
+	public ArrayList<Medicine> getMedicines() {
+		return medicines;
+	}
+	public ArrayList<ChargeItem> getChargeItems() {
+		return chargeItems;
 	}
 	public Patient(String name,String age,String phoneNumber,String id){
 		this.name=name;
