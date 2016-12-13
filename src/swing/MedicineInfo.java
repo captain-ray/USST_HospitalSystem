@@ -5,20 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Admin_2 {
+public class MedicineInfo {
 
 	private JFrame frame;
-	private JPanel panel;
-	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -27,7 +20,7 @@ public class Admin_2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Admin_2 window = new Admin_2();
+					MedicineInfo window = new MedicineInfo();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +32,7 @@ public class Admin_2 {
 	/**
 	 * Create the application.
 	 */
-	public Admin_2() {
+	public MedicineInfo() {
 		initialize();
 	}
 
@@ -48,29 +41,28 @@ public class Admin_2 {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		panel = new JPanel();
+		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JButton button = new JButton("添加账号");
-		button.setBounds(62, 68, 104, 34);
+		JButton button = new JButton("添加药品");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(65, 56, 93, 23);
 		panel.add(button);
 		
-		JButton btnNewButton = new JButton("修改账号");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(237, 68, 104, 34);
-		panel.add(btnNewButton);
+		JButton button_1 = new JButton("修改药品信息");
+		button_1.setBounds(240, 56, 130, 23);
+		panel.add(button_1);
 		
-		btnNewButton_1 = new JButton("删除账号");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setBounds(62, 164, 104, 34);
-		panel.add(btnNewButton_1);
+		JButton button_2 = new JButton("删除药品");
+		button_2.setBounds(65, 153, 93, 23);
+		panel.add(button_2);
 	}
+
 }
