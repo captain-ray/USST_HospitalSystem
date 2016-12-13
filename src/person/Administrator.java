@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Administor extends Person{
+public class Administrator extends Person{
 	
 	private ArrayList<Doctor> doctors=new ArrayList<>();
 	private ArrayList<Charger> chargers=new ArrayList<>();
@@ -13,7 +13,7 @@ public class Administor extends Person{
 	static ArrayList<Medicine> medicines = new ArrayList<>();
 	static ArrayList<ChargeItem> chargeItems = new ArrayList<>();
 	
-	public Administor(String userName, String password,String name,String id) {
+	public Administrator(String userName, String password,String name,String id) {
 		super(userName,password,name,id);
 	}
 	//添加医生账户
@@ -28,17 +28,17 @@ public class Administor extends Person{
 	}
 	//添加科室
 	public void addHospitalDepartment(String name,String no) throws IOException{
-		Administor.hospitalDepartments.add(new HospitalDepartment(name,no));
+		Administrator.hospitalDepartments.add(new HospitalDepartment(name,no));
 		//writeAccount("hospitalDepartment.txt");
 	}
 	//添加药品
 	public void addMedicine(String name,String shortName,String unit,double price,String no) throws IOException{
-		Administor.medicines.add(new Medicine(name,shortName,unit,price,no));
+		Administrator.medicines.add(new Medicine(name,shortName,unit,price,no));
 		//writeAccount("medicine.txt");
 	}
 	//添加收费项目
 	public void addChargeItem(String name,String shortName,String unit,double price,String no) throws IOException{
-		Administor.chargeItems.add(new ChargeItem(name,shortName,unit,price,no));
+		Administrator.chargeItems.add(new ChargeItem(name,shortName,unit,price,no));
 		//writeAccount("chargeItem.txt");
 	}
 	//修改账户
@@ -59,7 +59,7 @@ public class Administor extends Person{
 	//修改科室
 	public String alterHospital(String no,String newName) throws IOException{
 		int mark=0;
-		for(HospitalDepartment a : Administor.hospitalDepartments){
+		for(HospitalDepartment a : Administrator.hospitalDepartments){
 			if(a.getNo().equals(no)){
 				a.setName(newName);
 				mark=1;
@@ -73,7 +73,7 @@ public class Administor extends Person{
 	//修改药品
 	public String alterMedicine(String shortName,String newNo,String newUnit,String newPrice) throws IOException{
 		int mark=0;
-		for(Medicine a : Administor.medicines){
+		for(Medicine a : Administrator.medicines){
 			if(a.getShortName().equals(shortName)){
 				a.setNo(newNo);
 				a.setUnit(newUnit);
@@ -90,7 +90,7 @@ public class Administor extends Person{
 	//修改收费项目
 	public String alterChargeItem(String shortName,String newNo,String newUnit,String newPrice) throws IOException{
 		int mark=0;
-		for(ChargeItem a : Administor.chargeItems){
+		for(ChargeItem a : Administrator.chargeItems){
 			if(a.getShortName().equals(shortName)){
 				a.setNo(newNo);
 				a.setUnit(newUnit);
@@ -121,7 +121,7 @@ public class Administor extends Person{
 	//删除科室
 	public String deleteHospitalDepartment(String name) throws IOException{
 		int mark=0;
-		for(HospitalDepartment a:Administor.hospitalDepartments){
+		for(HospitalDepartment a:Administrator.hospitalDepartments){
 			if(a.getName().equals(name)){
 				hospitalDepartments.remove(a);
 				mark=1;
@@ -135,7 +135,7 @@ public class Administor extends Person{
 	//删除药品
 	public String deleteMedicine(String name) throws IOException{
 		int mark=0;
-		for(Medicine a:Administor.medicines){
+		for(Medicine a:Administrator.medicines){
 			if(a.getName().equals(name)){
 				medicines.remove(a);
 				mark=1;
@@ -149,7 +149,7 @@ public class Administor extends Person{
 	//删除项目
 	public String deleteChargeItem(String name) throws IOException{
 		int mark=0;
-		for(ChargeItem a:Administor.chargeItems){
+		for(ChargeItem a:Administrator.chargeItems){
 			if(a.getName().equals(name)){
 				medicines.remove(a);
 				mark=1;
@@ -170,21 +170,21 @@ public class Administor extends Person{
 	}*/
 	public void writeHospitalDepartment(String fileName) throws IOException{
 		FileWriter file = new FileWriter(fileName);
-		for(HospitalDepartment a : Administor.hospitalDepartments){
+		for(HospitalDepartment a : Administrator.hospitalDepartments){
 			file.write(a.getName()+" "+a.getNo());
 		}
 		file.close();
 	}
 	public void writeMedicine(String fileName) throws IOException{
 		FileWriter file = new FileWriter(fileName);
-		for(Medicine a : Administor.medicines){
+		for(Medicine a : Administrator.medicines){
 			file.write(a.getName()+" "+a.getShortName()+" "+a.getUnit()+" "+a.getPrice()+" "+a.getNo());
 		}
 		file.close();
 	}
 	public void writeChargeItem(String fileName) throws IOException{
 		FileWriter file = new FileWriter(fileName);
-		for(ChargeItem a : Administor.chargeItems){
+		for(ChargeItem a : Administrator.chargeItems){
 			file.write(a.getName()+" "+a.getShortName()+" "+a.getUnit()+" "+a.getPrice()+" "+a.getNo());
 		}
 		file.close();
@@ -239,6 +239,9 @@ class Account{
 class HospitalDepartment{
 	private String name;
 	private String no;//编号
+	private int registerNum;//挂号量
+	private double money;//科室总金额
+	
 	public String getName() {
 		return name;
 	}
@@ -255,9 +258,28 @@ class HospitalDepartment{
 		this.no = no;
 	}
 
+	
+	public int getRegisterNum() {
+		return registerNum;
+	}
+
+	public void setRegisterNum(int registerNum) {
+		this.registerNum = registerNum;
+	}
+
+	public double getMoney() {
+		return money;
+	}
+
+	public void setMoney(double money) {
+		this.money = money;
+	}
+
 	public HospitalDepartment(String name,String no){
 		this.name = name;
 		this.no = no;
+		registerNum=0;
+		money=0;
 	}
 	
 }
@@ -269,6 +291,7 @@ class Medicine{
 	private double price;
 	private String no;
 	private boolean state=false;//指示收费状态，false表示未收费
+	private int deposit;//药品库存量
 	public String getName() {
 		return name;
 	}
@@ -308,12 +331,20 @@ class Medicine{
 	public void setState(boolean state) {
 		this.state = state;
 	}
-	public Medicine(String name,String shortName,String unit,double price,String no){
+	
+	public int getDeposit() {
+		return deposit;
+	}
+	public void setDeposit(int deposit) {
+		this.deposit = deposit;
+	}
+	public Medicine(String name,String shortName,String unit,double price,String no,int deposit){
 		this.name=name;
 		this.shortName=shortName;
 		this.unit=unit;
 		this.price=price;
 		this.no=no;
+		this.deposit=deposit;
 	}
 }
 //收费项目类

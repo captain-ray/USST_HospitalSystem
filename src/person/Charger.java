@@ -12,6 +12,8 @@ public class Charger extends Person{
 	public void createRegister(Patient patient,Doctor doctor,HospitalDepartment hospitalDepartment){
 		patient.setDoctor(doctor);
 		patient.setHospitalDepartment(hospitalDepartment);
+		hospitalDepartment.setRegisterNum(hospitalDepartment.getRegisterNum()+1);
+		doctor.setCureNum(doctor.getCureNum()+1);
 		/**将信息写回文件**/
 	}
 	//查询是否为已预约病人

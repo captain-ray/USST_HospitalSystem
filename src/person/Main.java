@@ -13,7 +13,7 @@ public class Main {
 				String str = in.nextLine();
 				String[] strs = str.split("\\s");
 				Account account = new Account(strs[0], strs[1], strs[2]);
-				Administor.accounts.add(account);
+				Administrator.accounts.add(account);
 			} catch (Exception NoSuchElementException) {
 				in.close();
 				break;
@@ -26,7 +26,7 @@ public class Main {
 				String str = in.nextLine();
 				String[] strs = str.split("\\s");
 				HospitalDepartment hospitalDepartment = new HospitalDepartment(strs[0], strs[1]);
-				Administor.hospitalDepartments.add(hospitalDepartment);
+				Administrator.hospitalDepartments.add(hospitalDepartment);
 			} catch (Exception NoSuchElementException) {
 				in.close();
 				break;
@@ -40,7 +40,7 @@ public class Main {
 				String[] strs = str.split("\\s");
 				double price = Double.parseDouble(strs[3]);
 				Medicine medicine = new Medicine(strs[0], strs[1], strs[2], price, strs[4]);
-				Administor.medicines.add(medicine);
+				Administrator.medicines.add(medicine);
 			} catch (Exception NoSuchElementException) {
 				in.close();
 				break;
@@ -54,7 +54,7 @@ public class Main {
 				String[] strs = str.split("\\s");
 				double price = Double.parseDouble(strs[3]);
 				ChargeItem chargeItem = new ChargeItem(strs[0], strs[1], strs[2], price, strs[4]);
-				Administor.chargeItems.add(chargeItem);
+				Administrator.chargeItems.add(chargeItem);
 			} catch (Exception NoSuchElementException) {
 				in.close();
 				break;
